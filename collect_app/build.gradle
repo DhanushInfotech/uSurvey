@@ -1,0 +1,105 @@
+/**************************************************************************************************
+ GRADLE CONFIG
+ *************************************************************************************************/
+
+if ((new File(gradle.local)).exists()) {
+    apply from: gradle.local
+} else {
+    apply from: gradle.remote
+}
+
+applicationScripts.each {
+    apply from: it
+}
+
+apply plugin: 'com.android.application'
+
+com.android.ddmlib.DdmPreferences.setTimeOut(60000)
+
+android {
+    // The following are set in the common.gradle file
+    compileSdkVersion(compileVersion)
+    buildToolsVersion(buildTools)
+    logger.warn("buildTools " + buildTools);
+    defaultConfig {
+        applicationId("org.uSurvey.android")
+        minSdkVersion(11)
+        targetSdkVersion(9)
+        versionCode(1061)
+        versionName("1.0.1")
+    }
+
+    productFlavors {
+        demo {
+        }
+
+        master {
+        }
+
+        snapshot {
+        }
+
+        uitest {
+        }
+    }
+
+    signingConfigs {
+        release {
+            if (shouldSign) {
+                storeFile file(signStoreFilePath)
+                storePassword signStorePass
+                keyAlias signKeyAlias
+                keyPassword signKeyPass
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled(minify)
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+
+            if (shouldSign) {
+                signingConfig signingConfigs.release
+            }
+        }
+        debug {
+            debuggable(true)
+            testCoverageEnabled(testCoverage) // Allows AndroidTest JaCoCo reports to be generated
+        }
+    }
+
+    packagingOptions {
+        // Pick first occurrence of any files that cause conflicts, as defined in common.gradle
+        packageList.each {
+            pickFirst it
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility javaVersion
+        targetCompatibility javaVersion
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        cacheDynamicVersionsFor(0, 'seconds')
+        cacheChangingModulesFor(0, 'seconds')
+    }
+    transitive = true
+}
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:deprecation"
+    }
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile 'com.google.android.gms:play-services:4.1.32'
+
+    // Testing-only dependencies
+    testCompile 'junit:junit:4.12'
+    compile project(path: ':core')
+}
