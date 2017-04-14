@@ -66,16 +66,16 @@ public class InstanceChooserList extends ListActivity {
         String sortOrder = InstanceColumns.STATUS + " DESC, " + InstanceColumns.DISPLAY_NAME + " ASC";
         Cursor c = managedQuery(InstanceColumns.CONTENT_URI, null, selection, selectionArgs, sortOrder);
 
-        String[] data = new String[] {
+        String[] data = new String[]{
                 InstanceColumns.DISPLAY_NAME, InstanceColumns.DISPLAY_SUBTEXT
         };
-        int[] view = new int[] {
+        int[] view = new int[]{
                 R.id.text1, R.id.text2
         };
 
         // render total instance view
         SimpleCursorAdapter instances =
-            new SimpleCursorAdapter(this, R.layout.two_item, c, data, view);
+                new SimpleCursorAdapter(this, R.layout.two_item, c, data, view);
         setListAdapter(instances);
     }
 
@@ -94,8 +94,8 @@ public class InstanceChooserList extends ListActivity {
         Cursor c = (Cursor) getListAdapter().getItem(position);
         startManagingCursor(c);
         Uri instanceUri =
-            ContentUris.withAppendedId(InstanceColumns.CONTENT_URI,
-                c.getLong(c.getColumnIndex(InstanceColumns._ID)));
+                ContentUris.withAppendedId(InstanceColumns.CONTENT_URI,
+                        c.getLong(c.getColumnIndex(InstanceColumns._ID)));
 
         Collect.getInstance().getActivityLogger().logAction(this, "onListItemClick", instanceUri.toString());
 
@@ -109,14 +109,16 @@ public class InstanceChooserList extends ListActivity {
             // later.
             String status = c.getString(c.getColumnIndex(InstanceColumns.STATUS));
             String strCanEditWhenComplete =
-                c.getString(c.getColumnIndex(InstanceColumns.CAN_EDIT_WHEN_COMPLETE));
-
+                    c.getString(c.getColumnIndex(InstanceColumns.CAN_EDIT_WHEN_COMPLETE));
+            boolean isDownloaded =
+                    Boolean.parseBoolean(c.getString(c.getColumnIndex(InstanceColumns.IS_DOWNLOAD)));
             boolean canEdit = status.equals(InstanceProviderAPI.STATUS_INCOMPLETE)
-                	           || Boolean.parseBoolean(strCanEditWhenComplete);
+                    || Boolean.parseBoolean(strCanEditWhenComplete);
+
             if (!canEdit) {
-            	createErrorDialog(getString(R.string.cannot_edit_completed_form),
-                    	          DO_NOT_EXIT);
-            	return;
+                createErrorDialog(getString(R.string.cannot_edit_completed_form),
+                        DO_NOT_EXIT);
+                return;
             }
             // caller wants to view/edit a form, so launch formentryactivity
             startActivity(new Intent(Intent.ACTION_EDIT, instanceUri));
@@ -126,14 +128,14 @@ public class InstanceChooserList extends ListActivity {
 
     @Override
     protected void onStart() {
-    	super.onStart();
-		Collect.getInstance().getActivityLogger().logOnStart(this);
+        super.onStart();
+        Collect.getInstance().getActivityLogger().logOnStart(this);
     }
 
     @Override
     protected void onStop() {
-		Collect.getInstance().getActivityLogger().logOnStop(this);
-    	super.onStop();
+        Collect.getInstance().getActivityLogger().logOnStop(this);
+        super.onStop();
     }
 
     private void createErrorDialog(String errorMsg, final boolean shouldExit) {
@@ -148,7 +150,7 @@ public class InstanceChooserList extends ListActivity {
                 switch (i) {
                     case DialogInterface.BUTTON_POSITIVE:
                         Collect.getInstance().getActivityLogger().logAction(this, "createErrorDialog",
-                        		shouldExit ? "exitApplication" : "OK");
+                                shouldExit ? "exitApplication" : "OK");
                         if (shouldExit) {
                             finish();
                         }

@@ -20,9 +20,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.util.List;
-
 import org.javarosa.core.util.PrefixTree;
+
+import java.util.List;
 
 public class PrefixTreeTest extends TestCase  {
 

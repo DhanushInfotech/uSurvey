@@ -14,14 +14,6 @@
 
 package org.uSurvey.android.logic;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-
-import org.javarosa.core.services.IPropertyManager;
-import org.javarosa.core.services.properties.IPropertyRules;
-import org.uSurvey.android.preferences.PreferencesActivity;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
@@ -30,6 +22,14 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import org.javarosa.core.services.IPropertyManager;
+import org.javarosa.core.services.properties.IPropertyRules;
+import org.uSurvey.android.preferences.PreferencesActivity;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Used to return device properties to JavaRosa

@@ -153,6 +153,7 @@ public class FormController {
 
     private File mMediaFolder;
     private File mInstancePath;
+    private boolean isInstanceDownloaded;
     private FormEntryController mFormEntryController;
     private FormIndex mIndexWaitingForData = null;
 
@@ -160,6 +161,15 @@ public class FormController {
         mMediaFolder = mediaFolder;
         mFormEntryController = fec;
         mInstancePath = instancePath;
+    }
+
+    public boolean isInstanceDownloaded() {
+        return isInstanceDownloaded;
+    }
+
+    public FormController setInstanceDownloaded(boolean instanceDownloaded) {
+        isInstanceDownloaded = instanceDownloaded;
+        return this;
     }
 
     public FormDef getFormDef() {

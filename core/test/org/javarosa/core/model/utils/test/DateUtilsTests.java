@@ -20,11 +20,11 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.util.Date;
-import java.util.TimeZone;
-
 import org.javarosa.core.model.utils.DateUtils;
 import org.javarosa.core.model.utils.DateUtils.DateFields;
+
+import java.util.Date;
+import java.util.TimeZone;
 
 public class DateUtilsTests extends TestCase {
 	

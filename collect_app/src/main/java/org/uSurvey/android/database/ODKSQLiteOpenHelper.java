@@ -14,15 +14,16 @@
 
 package org.uSurvey.android.database;
 
-import java.io.File;
-
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteException;
 import android.os.Environment;
 import android.util.Log;
+
 import org.uSurvey.android.R;
 import org.uSurvey.android.application.Collect;
+
+import java.io.File;
 
 
 /**

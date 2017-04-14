@@ -351,6 +351,7 @@ public class DownloadFormsTask extends
                 ContentValues v = new ContentValues();
                 v.put(InstanceProviderAPI.InstanceColumns.DISPLAY_NAME, formDetails.instanceName);
                 v.put(InstanceProviderAPI.InstanceColumns.CAN_EDIT_WHEN_COMPLETE, Boolean.toString(true));
+                v.put(InstanceProviderAPI.InstanceColumns.IS_DOWNLOAD, Boolean.toString(true));
                 v.put(InstanceProviderAPI.InstanceColumns.INSTANCE_FILE_PATH, formFilePath);
                 v.put(InstanceProviderAPI.InstanceColumns.JR_FORM_ID, formDetails.formID);
 

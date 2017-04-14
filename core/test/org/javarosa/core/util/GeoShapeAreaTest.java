@@ -16,10 +16,6 @@
 
 package org.javarosa.core.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -29,6 +25,10 @@ import org.javarosa.core.model.FormDef;
 import org.javarosa.core.model.data.IAnswerData;
 import org.javarosa.core.model.instance.InstanceInitializationFactory;
 import org.javarosa.xform.util.XFormUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 /**
  * Author: Meletis Margaritis

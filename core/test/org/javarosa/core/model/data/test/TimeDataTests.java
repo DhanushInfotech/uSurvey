@@ -20,9 +20,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.util.Date;
-
 import org.javarosa.core.model.data.TimeData;
+
+import java.util.Date;
 
 public class TimeDataTests extends TestCase {
 	Date now;

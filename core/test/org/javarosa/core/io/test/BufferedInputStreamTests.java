@@ -16,17 +16,17 @@
 
 package org.javarosa.core.io.test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Random;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.javarosa.core.io.BufferedInputStream;
 import org.javarosa.core.util.ArrayUtilities;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Random;
 
 public class BufferedInputStreamTests extends TestCase{
 	

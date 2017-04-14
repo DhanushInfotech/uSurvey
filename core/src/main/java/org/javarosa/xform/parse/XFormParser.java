@@ -16,16 +16,6 @@
 
 package org.javarosa.xform.parse;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Stack;
-
 import org.javarosa.core.model.Action;
 import org.javarosa.core.model.Constants;
 import org.javarosa.core.model.DataBinding;
@@ -47,10 +37,10 @@ import org.javarosa.core.model.instance.InvalidReferenceException;
 import org.javarosa.core.model.instance.TreeElement;
 import org.javarosa.core.model.instance.TreeReference;
 import org.javarosa.core.model.instance.utils.IAnswerResolver;
-import org.javarosa.core.model.util.restorable.Restorable;
-import org.javarosa.core.model.util.restorable.RestoreUtils;
 import org.javarosa.core.model.osm.OSMTag;
 import org.javarosa.core.model.osm.OSMTagItem;
+import org.javarosa.core.model.util.restorable.Restorable;
+import org.javarosa.core.model.util.restorable.RestoreUtils;
 import org.javarosa.core.services.Logger;
 import org.javarosa.core.services.locale.Localizer;
 import org.javarosa.core.services.locale.TableLocaleSource;
@@ -76,6 +66,16 @@ import org.kxml2.kdom.Node;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Stack;
+
 /* droos: i think we need to start storing the contents of the <bind>s in the formdef again */
 
 /**
@@ -88,6 +88,7 @@ public class XFormParser {
 
     //Constants to clean up code and prevent user error
     private static final String ID_ATTR = "id";
+    public static final String IS_EDIT_ATTR = "isEdit";
     private static final String FORM_ATTR = "form";
     private static final String APPEARANCE_ATTR = "appearance";
     private static final String NODESET_ATTR = "nodeset";
@@ -904,6 +905,7 @@ public class XFormParser {
         usedAtts.add(REF_ATTR);
         usedAtts.add(BIND_ATTR);
         usedAtts.add(APPEARANCE_ATTR);
+        usedAtts.add(IS_EDIT_ATTR);
 
         IDataReference dataRef = null;
         boolean refFromBind = false;
@@ -1738,6 +1740,7 @@ public class XFormParser {
 
     protected DataBinding processStandardBindAttributes(List<String> usedAtts, Element e) {
         usedAtts.add(ID_ATTR);
+        usedAtts.add(IS_EDIT_ATTR);
         usedAtts.add(NODESET_ATTR);
         usedAtts.add("type");
         usedAtts.add("relevant");

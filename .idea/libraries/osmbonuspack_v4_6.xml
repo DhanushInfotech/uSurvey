@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="osmbonuspack_v4.6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/collect_app/libs/osmbonuspack_v4.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

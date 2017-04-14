@@ -157,6 +157,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
     public static final String KEY_INSTANCES = "instances";
     public static final String KEY_SUCCESS = "success";
     public static final String KEY_ERROR = "error";
+    boolean instanceIsDownloaded = false;
 
     // Identifies the gp of the form used to launch form entry
     public static final String KEY_FORMPATH = "formpath";
@@ -168,6 +169,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
     // external intent fires
 
     public static final String KEY_INSTANCEPATH = "instancepath";
+    public static final String KEY_INSTANCE_IS_DOWNLOAD = "instanceIsDownload";
     public static final String KEY_XPATH = "xpath";
     public static final String KEY_XPATH_WAITING_FOR_DATA = "xpathwaiting";
 
@@ -276,6 +278,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
         String startingXPath = null;
         String waitingXPath = null;
         String instancePath = null;
+
         Boolean newForm = true;
         mAutoSaved = false;
         if (savedInstanceState != null) {
@@ -284,6 +287,9 @@ public class FormEntryActivity extends Activity implements AnimationListener,
             }
             if (savedInstanceState.containsKey(KEY_INSTANCEPATH)) {
                 instancePath = savedInstanceState.getString(KEY_INSTANCEPATH);
+            }
+            if (savedInstanceState.containsKey(KEY_INSTANCE_IS_DOWNLOAD)) {
+                instanceIsDownloaded = savedInstanceState.getBoolean(KEY_INSTANCE_IS_DOWNLOAD);
             }
             if (savedInstanceState.containsKey(KEY_XPATH)) {
                 startingXPath = savedInstanceState.getString(KEY_XPATH);
@@ -327,7 +333,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                     // we need to launch the form loader to load the form
                     // controller...
                     mFormLoaderTask = new FormLoaderTask(instancePath,
-                            startingXPath, waitingXPath);
+                            startingXPath, waitingXPath).setInstanceDownloaded(instanceIsDownloaded);
                     Collect.getInstance().getActivityLogger()
                             .logAction(this, "formReloaded", mFormPath);
                     // TODO: this doesn' work (dialog does not get removed):
@@ -363,6 +369,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                                 instancePath = instanceCursor
                                         .getString(instanceCursor
                                                 .getColumnIndex(InstanceColumns.INSTANCE_FILE_PATH));
+                                instanceIsDownloaded = Boolean.parseBoolean(instanceCursor.getString(instanceCursor.getColumnIndex(InstanceColumns.IS_DOWNLOAD)));
                                 Collect.getInstance()
                                         .getActivityLogger()
                                         .logAction(this, "instanceLoaded",
@@ -510,7 +517,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                     return;
                 }
 
-                mFormLoaderTask = new FormLoaderTask(instancePath, null, null);
+                mFormLoaderTask = new FormLoaderTask(instancePath, null, null).setInstanceDownloaded(instanceIsDownloaded);
                 Collect.getInstance().getActivityLogger()
                         .logAction(this, "formLoaded", mFormPath);
                 showDialog(PROGRESS_DIALOG);
@@ -542,6 +549,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
         if (formController != null) {
             outState.putString(KEY_INSTANCEPATH, formController
                     .getInstancePath().getAbsolutePath());
+            outState.putBoolean(KEY_INSTANCE_IS_DOWNLOAD, instanceIsDownloaded);
             outState.putString(KEY_XPATH,
                     formController.getXPath(formController.getFormIndex()));
             FormIndex waiting = formController.getIndexWaitingForData();
@@ -1209,7 +1217,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                     FormEntryCaption[] groups = formController
                             .getGroupsForCurrentIndex();
                     odkv = new ODKView(this, formController.getQuestionPrompts(),
-                            groups, advancingPage);
+                            groups, advancingPage,formController);
                     Log.i(t,
                             "created view for group "
                                     + (groups.length > 0 ? groups[groups.length - 1]
@@ -1463,9 +1471,11 @@ public class FormEntryActivity extends Activity implements AnimationListener,
             FormEntryPrompt[] prompts = Collect.getInstance().getFormController()
                     .getQuestionPrompts();
             for (FormEntryPrompt p : prompts) {
-                List<TreeElement> attrs = p.getBindAttributes();
-                for (int i = 0; i < attrs.size(); i++) {
-                    if (!mAutoSaved && "saveIncomplete".equals(attrs.get(i).getName())) {
+                List<TreeElement> attributes = p.getAttributes();
+
+                List<TreeElement> bindAttributes = p.getBindAttributes();
+                for (int i = 0; i < bindAttributes.size(); i++) {
+                    if (!mAutoSaved && "saveIncomplete".equals(bindAttributes.get(i).getName())) {
                         saveDataToDisk(false, false, null, false);
                         mAutoSaved = true;
                     }

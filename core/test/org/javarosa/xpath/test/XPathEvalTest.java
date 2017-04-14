@@ -16,10 +16,6 @@
 
 package org.javarosa.xpath.test;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -38,6 +34,10 @@ import org.javarosa.xpath.XPathUnsupportedException;
 import org.javarosa.xpath.expr.XPathExpression;
 import org.javarosa.xpath.expr.XPathFuncExpr;
 import org.javarosa.xpath.parser.XPathSyntaxException;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class XPathEvalTest extends TestCase {
 
