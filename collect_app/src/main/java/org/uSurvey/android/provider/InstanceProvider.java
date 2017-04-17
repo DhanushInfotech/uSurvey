@@ -46,7 +46,7 @@ public class InstanceProvider extends ContentProvider {
     private static final String t = "InstancesProvider";
 
     private static final String DATABASE_NAME = "instances.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 3;
     private static final String INSTANCES_TABLE_NAME = "instances";
 
     private static HashMap<String, String> sInstancesProjectionMap;
@@ -76,7 +76,6 @@ public class InstanceProvider extends ContentProvider {
                     + InstanceColumns.INSTANCE_FILE_PATH + " text not null, "
                     + InstanceColumns.JR_FORM_ID + " text not null, "
                     + InstanceColumns.JR_VERSION + " text, "
-                    + InstanceColumns.IS_DOWNLOAD + " text, "
                     + InstanceColumns.STATUS + " text not null, "
                     + InstanceColumns.LAST_STATUS_CHANGE_DATE + " date not null, "
                     + InstanceColumns.DISPLAY_SUBTEXT + " text not null );");
@@ -99,10 +98,7 @@ public class InstanceProvider extends ContentProvider {
                 db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN " +
                         InstanceColumns.JR_VERSION + " text;");
             }
-            if (oldVersion == 3) {
-                db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN " +
-                        InstanceColumns.IS_DOWNLOAD + " text;");
-            }
+
             Log.w(t, "Successfully upgraded database from version " + initialVersion + " to " + newVersion
                     + ", without destroying all the old data");
         }
@@ -409,7 +405,6 @@ public class InstanceProvider extends ContentProvider {
         sInstancesProjectionMap.put(InstanceColumns.STATUS, InstanceColumns.STATUS);
         sInstancesProjectionMap.put(InstanceColumns.LAST_STATUS_CHANGE_DATE, InstanceColumns.LAST_STATUS_CHANGE_DATE);
         sInstancesProjectionMap.put(InstanceColumns.DISPLAY_SUBTEXT, InstanceColumns.DISPLAY_SUBTEXT);
-        sInstancesProjectionMap.put(InstanceColumns.IS_DOWNLOAD, InstanceColumns.IS_DOWNLOAD);
     }
 
 }

@@ -507,7 +507,7 @@ public class TreeElement implements Externalizable, AbstractTreeElement<TreeElem
 
     public boolean isNonEditable() {
         for (int i = 0; i < attributes.size(); i++) {
-            return (attributes.get(i).name.equalsIgnoreCase(LOCKED_ATTR) && getAttributeValue(attributes.get(i)).equalsIgnoreCase("true"));
+            return (attributes.get(i).name.equalsIgnoreCase(LOCKED_ATTR) && getAttributeValue(attributes.get(i)).equalsIgnoreCase("true()"));
         }
         return false;
     }

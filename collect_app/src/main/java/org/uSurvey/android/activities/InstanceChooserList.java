@@ -110,8 +110,7 @@ public class InstanceChooserList extends ListActivity {
             String status = c.getString(c.getColumnIndex(InstanceColumns.STATUS));
             String strCanEditWhenComplete =
                     c.getString(c.getColumnIndex(InstanceColumns.CAN_EDIT_WHEN_COMPLETE));
-            boolean isDownloaded =
-                    Boolean.parseBoolean(c.getString(c.getColumnIndex(InstanceColumns.IS_DOWNLOAD)));
+
             boolean canEdit = status.equals(InstanceProviderAPI.STATUS_INCOMPLETE)
                     || Boolean.parseBoolean(strCanEditWhenComplete);
 

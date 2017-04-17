@@ -119,14 +119,7 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
         mWaitingXPath = waitingXPath;
     }
 
-    public boolean isInstanceDownloaded() {
-        return isInstanceDownloaded;
-    }
 
-    public FormLoaderTask setInstanceDownloaded(boolean instanceDownloaded) {
-        isInstanceDownloaded = instanceDownloaded;
-        return this;
-    }
 
     /**
      * Initialize {@link FormEntryController} with {@link FormDef} from binary or
