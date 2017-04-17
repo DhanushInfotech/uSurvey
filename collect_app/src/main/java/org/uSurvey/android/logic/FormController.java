@@ -70,6 +70,7 @@ public class FormController {
      */
     private static final String INSTANCE_ID = "instanceID";
     private static final String INSTANCE_NAME = "instanceName";
+    private static final String LOCKED = "locked";
 
     /**
      * OpenRosa metadata of a form instance.
@@ -82,10 +83,12 @@ public class FormController {
     public static final class InstanceMetadata {
         public final String instanceId;
         public final String instanceName;
+        public final String additional;
 
-        InstanceMetadata(String instanceId, String instanceName) {
+        InstanceMetadata(String instanceId, String instanceName, String additional) {
             this.instanceId = instanceId;
             this.instanceName = instanceName;
+            this.additional = additional;
         }
     }
 
@@ -1240,6 +1243,7 @@ public class FormController {
 
         String instanceId = null;
         String instanceName = null;
+        String additional = null;
 
         if (e != null) {
             List<TreeElement> v;
@@ -1261,9 +1265,18 @@ public class FormController {
                     instanceName = (String) sa.getValue();
                 }
             }
+
+            // additional info to enable edit feature
+            v = e.getChildrenWithName(LOCKED);
+            if (v.size() == 1) {
+                StringData sa = (StringData) v.get(0).getValue();
+                if (sa != null) {
+                    additional = (String) sa.getValue();
+                }
+            }
         }
 
-        return new InstanceMetadata(instanceId, instanceName);
+        return new InstanceMetadata(instanceId, instanceName, additional);
     }
 
 }

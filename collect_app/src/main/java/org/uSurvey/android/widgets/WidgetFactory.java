@@ -46,7 +46,7 @@ public class WidgetFactory {
         if (appearance == null) appearance = "";
         // for now, all appearance tags are in english...
         appearance = appearance.toLowerCase(Locale.ENGLISH);
-        fep.setInstanceDownloaded(formController.isInstanceDownloaded());
+        fep.setInstanceDownloaded(formController.getSubmissionMetadata().additional);
         QuestionWidget questionWidget;
         switch (fep.getControlType()) {
             case Constants.CONTROL_INPUT:

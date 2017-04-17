@@ -88,7 +88,7 @@ public class XFormParser {
 
     //Constants to clean up code and prevent user error
     private static final String ID_ATTR = "id";
-    public static final String IS_EDIT_ATTR = "isEdit";
+    public static final String LOCKED_ATTR = "locked";
     private static final String FORM_ATTR = "form";
     private static final String APPEARANCE_ATTR = "appearance";
     private static final String NODESET_ATTR = "nodeset";
@@ -905,7 +905,7 @@ public class XFormParser {
         usedAtts.add(REF_ATTR);
         usedAtts.add(BIND_ATTR);
         usedAtts.add(APPEARANCE_ATTR);
-        usedAtts.add(IS_EDIT_ATTR);
+        usedAtts.add(LOCKED_ATTR);
 
         IDataReference dataRef = null;
         boolean refFromBind = false;
@@ -1740,7 +1740,7 @@ public class XFormParser {
 
     protected DataBinding processStandardBindAttributes(List<String> usedAtts, Element e) {
         usedAtts.add(ID_ATTR);
-        usedAtts.add(IS_EDIT_ATTR);
+        usedAtts.add(LOCKED_ATTR);
         usedAtts.add(NODESET_ATTR);
         usedAtts.add("type");
         usedAtts.add("relevant");

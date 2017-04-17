@@ -57,8 +57,8 @@ public class FormEntryPrompt extends FormEntryCaption {
         return isInstanceDownloaded;
     }
 
-    public FormEntryPrompt setInstanceDownloaded(boolean instanceDownloaded) {
-        isInstanceDownloaded = instanceDownloaded;
+    public FormEntryPrompt setInstanceDownloaded(String additionalInfo) {
+        isInstanceDownloaded = (additionalInfo != null && additionalInfo.trim().length() != 0);
         return this;
     }
 
