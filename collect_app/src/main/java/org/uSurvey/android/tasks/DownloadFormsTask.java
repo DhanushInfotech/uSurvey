@@ -351,7 +351,7 @@ public class DownloadFormsTask extends
                 ContentValues v = new ContentValues();
                 v.put(InstanceProviderAPI.InstanceColumns.DISPLAY_NAME, formDetails.instanceName);
                 v.put(InstanceProviderAPI.InstanceColumns.CAN_EDIT_WHEN_COMPLETE, Boolean.toString(true));
-              //  v.put(InstanceProviderAPI.InstanceColumns.IS_DOWNLOAD, Boolean.toString(true));
+                //  v.put(InstanceProviderAPI.InstanceColumns.IS_DOWNLOAD, Boolean.toString(true));
                 v.put(InstanceProviderAPI.InstanceColumns.INSTANCE_FILE_PATH, formFilePath);
                 v.put(InstanceProviderAPI.InstanceColumns.JR_FORM_ID, formDetails.formID);
 
@@ -366,7 +366,11 @@ public class DownloadFormsTask extends
 
             } else {
                 Log.w("Instance already exists", formFile.getAbsolutePath());
-//                cursor.moveToFirst();
+                cursor.moveToFirst();
+                ContentValues values = new ContentValues();
+                values.put(InstanceProviderAPI.InstanceColumns.STATUS, InstanceProviderAPI.STATUS_COMPLETE);
+                Collect.getInstance().getContentResolver().update(InstanceProviderAPI.InstanceColumns.CONTENT_URI, values, selection, selectionArgs);
+                Collect.getInstance().getActivityLogger().logAction(this, "Update instance", formFile.getAbsolutePath());
 //                uri =
 //                        Uri.withAppendedPath(InstanceColumns.CONTENT_URI,
 //                                cursor.getString(cursor.getColumnIndex(FormsColumns._ID)));
