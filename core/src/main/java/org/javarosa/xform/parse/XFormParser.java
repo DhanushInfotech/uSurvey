@@ -88,7 +88,6 @@ public class XFormParser {
 
     //Constants to clean up code and prevent user error
     private static final String ID_ATTR = "id";
-    public static final String LOCKED_ATTR = "locked";
     private static final String FORM_ATTR = "form";
     private static final String APPEARANCE_ATTR = "appearance";
     private static final String NODESET_ATTR = "nodeset";
@@ -101,6 +100,8 @@ public class XFormParser {
     private static final String SELECTONE = "select1";
     private static final String SELECT = "select";
     private static final String EXTRA_PROMPT_ATTR = "prompt";
+    public static final String LOCKED_ATTR = "locked";
+
 
     public static final String NAMESPACE_JAVAROSA = "http://openrosa.org/javarosa";
     public static final String NAMESPACE_HTML = "http://www.w3.org/1999/xhtml";

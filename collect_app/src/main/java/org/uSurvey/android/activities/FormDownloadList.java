@@ -137,7 +137,8 @@ public class FormDownloadList extends ListActivity implements FormListDownloader
         if (bundle != null && bundle.containsKey("downloadInstances")) {
             needInstances = bundle.getBoolean("downloadInstances");
         }
-        setTitle(getString(R.string.app_name) + " > " + getString(R.string.get_forms));
+        setTitle(getString(R.string.app_name) + " > " + (needInstances?getString(R.string.download_completed_forms):getString(R.string.get_forms)));
+
         mAlertMsg = getString(R.string.please_wait);
 
         // need white background before load

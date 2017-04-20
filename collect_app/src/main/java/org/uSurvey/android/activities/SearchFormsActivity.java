@@ -59,7 +59,7 @@ public class SearchFormsActivity extends Activity {
         setContentView(R.layout.activity_search_forms);
         searchFormsResults = (ListView) findViewById(R.id.searchFormsResults);
         searchForms = (SearchView) findViewById(R.id.searchForms);
-
+        setTitle(getString(R.string.app_name) + " > " + getString(R.string.search_forms));
         searchFormsResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
